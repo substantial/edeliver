@@ -29,6 +29,23 @@ trap __graceful_stop SIGINT SIGTERM
 __capture_runtime_configs
 __find_all_strategies
 
+# When running deliver with the --clone flag, a new version of the same
+# app will be pushed out, without touching the existing instance of the
+# same app. The following will be incremented:
+#
+# * APP
+# * DELIVER_TO
+# * PORT
+# * UNIX_SOCKET
+#
+# It will be still owned by the same system user.
+# This is inspired by Netflix's approach to HA and 2 recent blog posts:
+# 1. http://blog.phusion.nl/2012/07/26/roadmap-preview-2-live-irb-console-deployment-error-resistance-new-website/
+# 2. http://blog.appfog.com/how-to-update-your-appfog-app-with-zero-downtime/
+#
+# As an add-on to the above, there should be a --sockets flag that
+# returns all ports & unix sockets that an app is using across all
+# $HOSTS.
 source "$BASE_PATH/libexec/init"
 
 __load_app_config
