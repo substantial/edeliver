@@ -35,6 +35,10 @@ reset_git_head() {
 # otherwise it will default to the standard rocco command.
 #
 generate() {
+  # TODO
+  # What happens if any of those steps fail?
+  # There doesn't seem to be any error handling going on at the moment.
+  # Time to beef up __exec...
   status "Generating content"
 
   ignore_generated_dir
