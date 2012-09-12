@@ -7,41 +7,39 @@ __version() {
 __help() {
   __version
 
-  echo -e "${txtbld}Usage:${txtrst}
-  deliver [MODE] [COMMAND]
-  deliver [OPTIONS]
+  echo -e "${txtbld}USAGE${txtrst}
+  ${txtcyn}deliver [COMMAND]${txtrst} ${txtylw}[MODE]${txtrst}
 
-${txtbld}Commands:${txtrst}
-  deliver strategies    Lists all available strategies
-  deliver check         Checks if everything is setup correctly, displays the entire configuration
-  deliver [MODE]        Takes your code into production
+${txtbld}COMMANDS${txtrst}
+  ${txtcyn}deliver help${txtrst}          This help message
+  ${txtcyn}deliver version${txtrst}       Current deliver version
+  ${txtcyn}deliver strategies${txtrst}    Lists all available strategies
+  ${txtcyn}deliver check${txtrst}         Displays the entire configuration (highlights errors)
+  ${txtcyn}deliver${txtrst}               Takes your code into production
 
-${txtbld}Modes:${txtrst}
-  -C, --compact         Displays every task as it's run, silences all output. (default mode)
-  -V, --verbose         Same as above, does not silence output.
-  -P, --plain           Displays every task as it's run, silences all output. No colouring. (CI)
-  -D, --debug           Runs in shell debug mode, displays everything.
+${txtbld}MODES${txtrst}
+  Each of the above commands supports the following runtime modes:
 
-${txtbld}Options:${txtrst}
-  -s, --strategy        Enforces a particular strategy.
-  -h, --help            Displays this help. (works with no other options)
-  -v, --version         Displays the running version (works with no other options)
+  ${txtylw}-C${txtrst}, ${txtylw}--compact${txtrst}   Displays progress, silences output. (default mode)
+  ${txtylw}-P${txtrst}, ${txtylw}--plain${txtrst}     Same as compact, but has no colouring (CI friendly)
+  ${txtylw}-V${txtrst}, ${txtylw}--verbose${txtrst}   Same as compact, does not silence output.
+  ${txtylw}-D${txtrst}, ${txtylw}--debug${txtrst}     Shell debug mode.
 
-${txtbld}Miscellaneous:${txtrst}
-  You can overwrite any config at runtime (deliver check):
+${txtbld}MISCELLANEOUS:${txtrst}
+  You can overwrite any config at runtime. Run ${txtcyn}deliver check${txtrst} to confirm this:
 
-  HOSTS=ruby-1-local PORT=6000 deliver -V
+  HOSTS=ruby-1-local PORT=6000 ${txtcyn}deliver check${txtrst}
 "
 }
 
 __available_strategies() {
   __version
 
-  echo -e "${txtbld}Available strategies:${txtrst}"
+  echo -e "${txtbld}STRATEGIES${txtrst}"
 
   for strategy in $STRATEGIES_NAME
   do
-    echo "  * $strategy"
+    echo "  ${txtmgt}$strategy${txtrst}"
   done
 
   echo ""
@@ -51,6 +49,21 @@ while (( $# ))
 do
   arg="$1" && shift
   case "${arg}" in
+    (-h|--help|help)
+      __help
+      exit 0
+    ;;
+    (-v|--version|version)
+      __version
+      exit 0
+    ;;
+    (-s|--strategies|strategies)
+      __available_strategies
+      exit 0
+    ;;
+    (-c|--check|check)
+      CHECK=true
+    ;;
     (-C|--compact)
       MODE="compact"
     ;;
@@ -62,24 +75,6 @@ do
     ;;
     (-P|--plain)
       MODE="plain"
-    ;;
-    (-h|--help)
-      __help
-      exit 0
-    ;;
-    (-s|--strategy)
-      STRATEGY="$1" && shift
-    ;;
-    (-v|--version)
-      __version
-      exit 0
-    ;;
-    (strategies)
-      __available_strategies
-      exit 0
-    ;;
-    (check)
-      CHECK=true
     ;;
     (*)
       hint_message "Unknown argument ${arg} ignored"

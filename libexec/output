@@ -9,6 +9,14 @@
 # http://www.catonmat.net/blog/unix-utilities-pipe-viewer/ & http://www.ivarch.com/programs/quickref/pv.shtml
 # http://fitnr.com/showing-a-bash-spinner.html
 #
+txtrst=$(tput sgr0)             # Reset
+txtred=$(tput setaf 1)          # Red
+txtgrn=$(tput setaf 2)          # Green
+txtylw=$(tput setaf 3)          # Yellow
+txtblu=$(tput setaf 4)          # Blue
+txtmgt=$(tput setaf 5)          # Magenta
+txtcyn=$(tput setaf 6)          # Cyan
+txtwht=$(tput setaf 7)          # White
 txtund=$(tput sgr 0 1)          # Underline
 txtbld=$(tput bold)             # Bold
 bldred=${txtbld}$(tput setaf 1) #  red
@@ -17,14 +25,6 @@ bldylw=${txtbld}$(tput setaf 3) #  yellow
 bldmgt=${txtbld}$(tput setaf 5) #  cyan
 bldcyn=${txtbld}$(tput setaf 6) #  cyan
 bldwht=${txtbld}$(tput setaf 7) #  white
-txtred=$(tput setaf 1)          # Red
-txtgrn=$(tput setaf 2)          # Green
-txtylw=$(tput setaf 3)          # Yellow
-txtblu=$(tput setaf 4)          # Blue
-txtmgt=$(tput setaf 5)          # Magenta
-txtcyn=$(tput setaf 6)          # Cyan
-txtwht=$(tput setaf 7)          # White
-txtrst=$(tput sgr0)             # Reset
 info=${bldwht}*${txtrst}        # Feedback
 pass=${bldblu}*${txtrst}
 warn=${bldred}*${txtrst}
