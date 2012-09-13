@@ -91,7 +91,8 @@ do
       MODE="verbose"
     ;;
     (-P|--plain)
-      MODE="plain"
+      # this was already captured in libexec/output
+      # noop
     ;;
     (*)
       hint_message "Unknown argument ${arg} ignored"
