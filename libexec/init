@@ -8,24 +8,37 @@ __help() {
   __version
 
   echo -e "${txtbld}USAGE${txtrst}
-  ${txtcyn}deliver [COMMAND]${txtrst} ${txtylw}[MODE]${txtrst}
+  deliver [${txtcyn}CO${txtgrn}MMA${txtred}ND${txtrst}] [${txtylw}MODE${txtrst}]
 
 ${txtbld}COMMANDS${txtrst}
-  ${txtcyn}deliver help${txtrst}          This help message
-  ${txtcyn}deliver version${txtrst}       Current deliver version
-  ${txtcyn}deliver strategies${txtrst}    Lists all available strategies
-  ${txtcyn}deliver check${txtrst}         Displays the entire configuration (highlights errors)
-  ${txtcyn}deliver${txtrst}               Takes your code into production
+  ${txtbld}deliver${txtrst}             Delivers your code to all \$HOSTS
+  deliver ${txtgrn}clone${txtrst}*       Creates independent instances of your code across \$HOSTS
+  deliver ${txtred}prune${txtrst}*       Keeps \$KEEP most recent code instances across \$HOSTS
+  deliver ${txtred}clear${txtrst}*       Clears all traces of your code from \$HOSTS
+  deliver ${txtcyn}check${txtrst}       Displays the local deliver configuration (highlights errors)
+  deliver ${txtcyn}inventory${txtrst}*   Displays all code instances across \$HOSTS
+  deliver ${txtcyn}strategies${txtrst}  Lists all available strategies
+  deliver ${txtcyn}help${txtrst}        This help message
+  deliver ${txtcyn}version${txtrst}     Current deliver version
 
 ${txtbld}MODES${txtrst}
   Each of the above commands supports the following runtime modes:
 
   ${txtylw}-C${txtrst}, ${txtylw}--compact${txtrst}   Displays progress, silences output. (default mode)
-  ${txtylw}-P${txtrst}, ${txtylw}--plain${txtrst}     Same as compact, but has no colouring (CI friendly)
-  ${txtylw}-V${txtrst}, ${txtylw}--verbose${txtrst}   Same as compact, does not silence output.
-  ${txtylw}-D${txtrst}, ${txtylw}--debug${txtrst}     Shell debug mode.
+  ${txtylw}-P${txtrst}, ${txtylw}--plain${txtrst}     Same as compact, but uses no colours (CI friendly)
+  ${txtylw}-V${txtrst}, ${txtylw}--verbose${txtrst}   Same as compact, does not silence output
+  ${txtylw}-D${txtrst}, ${txtylw}--debug${txtrst}     Shell debug mode
 
-${txtbld}MISCELLANEOUS:${txtrst}
+${txtbld}CLONING*${txtrst}
+  This command allows you to run 2 (or more) instances of your code side-by-side.
+
+${txtbld}PRUNING*${txtrst}
+
+${txtbld}CLEARING*${txtrst}
+
+${txtbld}INVENTORY*${txtrst}
+
+${txtbld}MISCELLANEOUS${txtrst}
   You can overwrite any config at runtime. Run ${txtcyn}deliver check${txtrst} to confirm this:
 
   HOSTS=ruby-1-local PORT=6000 ${txtcyn}deliver check${txtrst}
@@ -63,6 +76,10 @@ do
     ;;
     (-c|--check|check)
       CHECK=true
+    ;;
+    (clone|prune|clear|setup|inventory)
+      echo "${arg} has not been implemented yet"
+      exit 1
     ;;
     (-C|--compact)
       MODE="compact"
