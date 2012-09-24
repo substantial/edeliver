@@ -16,7 +16,7 @@ ${txtbld}COMMANDS${txtrst}
   deliver ${txtred}prune${txtrst}*      Keeps \$KEEP most recent code instances across \$HOSTS
   deliver ${txtred}clear${txtrst}*      Clears all traces of your code from \$HOSTS
   deliver ${txtcyn}check${txtrst}       Displays the local deliver configuration (highlights errors)
-  deliver ${txtcyn}inventory${txtrst}*  Displays all code instances across \$HOSTS
+  deliver ${txtcyn}status${txtrst}*     Displays all code instances across \$HOSTS
   deliver ${txtcyn}strategies${txtrst}  Lists all available strategies
   deliver ${txtcyn}help${txtrst}        This help message
   deliver ${txtcyn}version${txtrst}     Current deliver version
@@ -36,7 +36,7 @@ ${txtbld}PRUNING*${txtrst}
 
 ${txtbld}CLEARING*${txtrst}
 
-${txtbld}INVENTORY*${txtrst}
+${txtbld}STATUS*${txtrst}
 
 ${txtbld}MISCELLANEOUS${txtrst}
   You can overwrite any config at runtime. Run ${txtcyn}deliver check${txtrst} to confirm this:
@@ -62,6 +62,13 @@ while (( $# ))
 do
   arg="$1" && shift
   case "${arg}" in
+# This is inspired by Netflix's approach to HA and some recent blog posts:
+# 1. http://blog.phusion.nl/2012/07/26/roadmap-preview-2-live-irb-console-deployment-error-resistance-new-website/
+# 2. http://blog.appfog.com/how-to-update-your-appfog-app-with-zero-downtime/
+# 3. http://blog.argteam.com/coding/hardening-node-js-for-production-part-3-zero-downtime-deployments-with-nginx/
+    (clone)
+      CLONE=true
+    ;;
     (-h|--help|help)
       __help
       exit 0
@@ -77,7 +84,7 @@ do
     (-c|--check|check)
       CHECK=true
     ;;
-    (clone|prune|clear|setup|inventory)
+    (status|prune|clear)
       echo "${arg} has not been implemented yet"
       exit 1
     ;;
