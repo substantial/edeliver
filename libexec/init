@@ -12,11 +12,11 @@ __help() {
 
 ${txtbld}COMMANDS${txtrst}
   ${txtbld}deliver${txtrst}             Delivers your code to all \$HOSTS
-  deliver ${txtgrn}clone${txtrst}*       Creates independent instances of your code across \$HOSTS
-  deliver ${txtred}prune${txtrst}*       Keeps \$KEEP most recent code instances across \$HOSTS
-  deliver ${txtred}clear${txtrst}*       Clears all traces of your code from \$HOSTS
+  deliver ${txtgrn}clone${txtrst}*      Creates independent instances of your code across \$HOSTS
+  deliver ${txtred}prune${txtrst}*      Keeps \$KEEP most recent code instances across \$HOSTS
+  deliver ${txtred}clear${txtrst}*      Clears all traces of your code from \$HOSTS
   deliver ${txtcyn}check${txtrst}       Displays the local deliver configuration (highlights errors)
-  deliver ${txtcyn}inventory${txtrst}*   Displays all code instances across \$HOSTS
+  deliver ${txtcyn}inventory${txtrst}*  Displays all code instances across \$HOSTS
   deliver ${txtcyn}strategies${txtrst}  Lists all available strategies
   deliver ${txtcyn}help${txtrst}        This help message
   deliver ${txtcyn}version${txtrst}     Current deliver version
