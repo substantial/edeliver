@@ -2,6 +2,13 @@
 
 * **shared** strategy with file permissions support (think www-data,
   php-fpm, etc.)
+* reset remotes to specific **REVISION** (see `deliver check`)
+* configurable **GIT_PUSH** (--all, --mirror, --tags etc.)
+
+#### Notices
+
+BRANCH has been replaced with REFSPEC.
+
 
 ### What's new in deliver 0.6.0
 
